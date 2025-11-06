@@ -7,13 +7,27 @@ import asyncio
 
 router = APIRouter(tags=["Player"])
 
+ALLOWED_ORIGINS = {
+    "https://wall-finishing-system.vercel.app",
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+}
 
 @router.websocket("/ws/play/{plan_id}")
 async def websocket_play(websocket: WebSocket, plan_id: str):
     """
-    WebSocket endpoint to stream trajectory points for a given plan_id.
-    Handles both ORM and dict-style results safely.
+    Streams trajectory points for a given plan_id over WebSocket.
+    Compatible with Vercel frontend + Render backend.
     """
+    origin = websocket.headers.get("origin")
+    logger.info(f"🌐 WebSocket request from: {origin}")
+
+    # ✅ Allow only trusted origins
+    if origin not in ALLOWED_ORIGINS:
+        await websocket.close(code=1008)
+        logger.warning(f"❌ WebSocket rejected from invalid origin: {origin}")
+        return
+
     await websocket.accept()
     db: Session = SessionLocal()
 
@@ -23,46 +37,37 @@ async def websocket_play(websocket: WebSocket, plan_id: str):
         if not rows:
             await websocket.send_json({"error": "plan_not_found"})
             await websocket.close()
-            logger.warning(f"WebSocket: Plan '{plan_id}' not found.")
+            logger.warning(f"⚠️ Plan '{plan_id}' not found.")
             return
 
         total = len(rows)
-        logger.info(f"🎬 WebSocket playback started for plan {plan_id} ({total} points)")
+        logger.info(f"🎬 Streaming {total} points for plan_id={plan_id}")
 
         for i, row in enumerate(rows):
-            # ✅ Handle dict or ORM result safely
-            if isinstance(row, dict):
-                ts = row.get("timestamp")
-                x = row.get("x")
-                y = row.get("y")
-            else:  # Fallback (if ORM object)
-                ts = (
-                    row.timestamp.timestamp()
-                    if hasattr(row.timestamp, "timestamp")
-                    else row.timestamp
-                )
-                x = row.x
-                y = row.y
-
+            ts = (
+                row.timestamp.timestamp()
+                if hasattr(row.timestamp, "timestamp")
+                else row.timestamp
+            )
             await websocket.send_json({
-                "x": float(x),
-                "y": float(y),
+                "x": float(row.x),
+                "y": float(row.y),
                 "index": i,
                 "total": total,
                 "timestamp": ts,
             })
             await asyncio.sleep(0.05)
 
+        logger.info(f"✅ Completed playback for plan {plan_id}")
         await websocket.close()
-        logger.info(f"✅ Playback completed for plan {plan_id}")
 
     except WebSocketDisconnect:
-        logger.info(f"❌ WebSocket disconnected for plan {plan_id}")
+        logger.info(f"🔌 Client disconnected from /ws/play/{plan_id}")
     except Exception as e:
-        logger.error(f"🔥 WebSocket error for plan {plan_id}: {e}")
+        logger.error(f"🔥 WebSocket error for {plan_id}: {e}")
         try:
             await websocket.send_json({"error": str(e)})
-        except Exception:
+        except:
             pass
         await websocket.close()
     finally:
