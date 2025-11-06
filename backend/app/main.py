@@ -4,7 +4,7 @@ from fastapi import FastAPI, Request, WebSocket
 from starlette.middleware.cors import CORSMiddleware
 import time
 from app.database import Base, engine
-from app.routes import coverage, trajectory, player  # ✅ WebSocket route included
+from app.routes import coverage, trajectory, player
 from app.utils.logging import logger
 
 # ✅ Create all database tables
@@ -41,7 +41,8 @@ async def add_process_time_header(request: Request, call_next):
 # ✅ Register REST + WebSocket routes
 app.include_router(coverage.router, prefix="/api/coverage", tags=["Coverage"])
 app.include_router(trajectory.router, prefix="/api/trajectory", tags=["Trajectory"])
-app.include_router(player.router)  # ✅ No prefix for WebSocket routes
+app.include_router(player.router)
+
 
 
 # ✅ Health check
