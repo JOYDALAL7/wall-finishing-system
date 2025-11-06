@@ -32,7 +32,7 @@ RUN pip install --no-cache-dir --upgrade pip && \
 # ================================
 COPY app ./app
 
-# ✅ Fix: Set correct permissions *after* copying code
+# ✅ Fix permissions
 RUN chmod -R 777 /app
 
 # Switch to non-root user
@@ -46,7 +46,9 @@ ENV HOST=0.0.0.0
 ENV APP_MODULE=app.main:app
 
 # ================================
-# 🌐 Expose and run with Gunicorn
+# 🌐 Expose and run with Uvicorn (WebSocket-safe)
 # ================================
 EXPOSE 8000
-CMD ["gunicorn", "-k", "uvicorn.workers.UvicornWorker", "-w", "2", "-b", "0.0.0.0:8000", "app.main:app"]
+
+# ✅ FINAL FIX — Use direct Uvicorn (not Gunicorn)
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--proxy-headers", "--forwarded-allow-ips", "*"]
