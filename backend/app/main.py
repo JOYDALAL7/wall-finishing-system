@@ -13,13 +13,15 @@ Base.metadata.create_all(bind=engine)
 # ✅ Initialize FastAPI app
 app = FastAPI(title="Wall Finishing Planner API")
 
-# ✅ Fix CORS for Vite frontend on localhost:5173
+# ✅ CORS setup — allow both localhost and Vercel frontend
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
         "http://127.0.0.1:5173",
-    ],  # ✅ exact allowed origins
+        "https://wall-finishing-system.vercel.app",  # ✅ your Vercel frontend
+        "https://wall-finishing-system.onrender.com",  # ✅ your backend (self)
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
