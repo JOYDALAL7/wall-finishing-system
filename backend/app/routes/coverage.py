@@ -13,7 +13,7 @@ from datetime import datetime
 router = APIRouter(tags=["Coverage"])
 
 
-# ✅ DB dependency
+# ✅ Database Dependency
 def get_db():
     db = SessionLocal()
     try:
@@ -29,7 +29,7 @@ def plan_coverage(payload: schemas.CoverageRequest, db: Session = Depends(get_db
     stores trajectories in DB, and returns plan_id + points.
     """
 
-    # ✅ Create cache key
+    # ✅ Build cache key (prevents recalculating same walls)
     key = (
         payload.wall_width,
         payload.wall_height,
@@ -37,48 +37,48 @@ def plan_coverage(payload: schemas.CoverageRequest, db: Session = Depends(get_db
         payload.step,
     )
 
-    # ✅ Use cache if available
     cached = cache.cache.get(key)
     if cached:
-        logger.info("Coverage result returned from cache")
+        logger.info("♻️ Returning cached coverage result")
         return cached
 
-    # ✅ Build obstacle list
+    # ✅ Convert obstacle list
     obstacles = [
         {"x": o.x, "y": o.y, "width": o.width, "height": o.height}
         for o in payload.obstacles
     ]
 
-    # ✅ Generate new coverage plan
-    plan_id = str(uuid4())
-    points = generate_coverage_path(
-        payload.wall_width, payload.wall_height, obstacles, payload.step
-    )
-
-    # ✅ Ensure result format
-    if not points:
-        raise HTTPException(status_code=400, detail="No valid coverage path generated")
-
-    # ✅ Save each trajectory to DB
     try:
-        for p in points:
-            traj = schemas.TrajectoryCreate(
-                x=p["x"],
-                y=p["y"],
-                timestamp=p["timestamp"],
-                plan_id=plan_id,
-            )
-            crud.create_trajectory(db, traj)
+        # ✅ Generate coverage path
+        result = generate_coverage_path(
+            payload.wall_width, payload.wall_height, obstacles, payload.step
+        )
 
-        db.commit()  # ✅ Important: persist all trajectories
+        # Handle both return types (dict or list)
+        if isinstance(result, dict) and "points" in result:
+            plan_id = result.get("plan_id") or str(uuid4())
+            points = result["points"]
+        else:
+            plan_id = str(uuid4())
+            points = result
 
-        logger.info(f"✅ Created plan {plan_id} with {len(points)} points")
+        # ✅ Validate
+        if not points or not isinstance(points, list):
+            raise HTTPException(status_code=400, detail="No valid path generated")
 
+        # ✅ Save all points to DB in bulk (single transaction)
+        insert_status = crud.create_trajectories(db, plan_id, points)
+        if insert_status.get("status") != "success":
+            raise HTTPException(status_code=500, detail=insert_status.get("message"))
+
+        # ✅ Build and cache response
         response = {"plan_id": plan_id, "points": points}
         cache.cache.set(key, response, ttl_seconds=60.0)
+
+        logger.info(f"✅ Plan {plan_id} created with {len(points)} points")
         return response
 
     except Exception as e:
         db.rollback()
-        logger.error(f"🔥 Error creating trajectories: {e}")
+        logger.error(f"🔥 Error creating coverage plan: {e}")
         raise HTTPException(status_code=500, detail=str(e))
