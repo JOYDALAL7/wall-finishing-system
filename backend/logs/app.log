@@ -177,3 +177,25 @@
 2025-11-06 20:58:54 - INFO - POST /api/coverage/ - 0.0206s - 200
 2025-11-06 20:58:55 - INFO - 🎬 WebSocket playback started for plan dc657a6a-cd71-41ce-b714-767b81844ec2 (437 points)
 2025-11-06 20:58:57 - INFO - ❌ WebSocket disconnected for plan dc657a6a-cd71-41ce-b714-767b81844ec2
+2025-11-06 21:51:45 - INFO - GET /api/trajectory/recent - 0.0128s - 200
+2025-11-06 21:51:45 - INFO - GET /api/trajectory/recent - 0.003s - 200
+2025-11-06 21:51:47 - INFO - OPTIONS /api/coverage/ - 0.0002s - 200
+2025-11-06 21:51:47 - INFO - Created plan 7566d027-1958-42d7-a6dd-b291fe1d7ef6 with 441 points
+2025-11-06 21:51:47 - INFO - POST /api/coverage/ - 0.0338s - 200
+2025-11-06 21:51:48 - INFO - GET /api/trajectory/recent - 0.0026s - 200
+2025-11-06 21:51:49 - INFO - 🎬 WebSocket playback started for plan 7566d027-1958-42d7-a6dd-b291fe1d7ef6 (441 points)
+2025-11-06 21:52:17 - INFO - ✅ Playback completed for plan 7566d027-1958-42d7-a6dd-b291fe1d7ef6
+2025-11-06 21:53:31 - INFO - GET /api/trajectory/recent - 0.0035s - 200
+2025-11-06 21:53:31 - INFO - GET /api/trajectory/recent - 0.0031s - 200
+2025-11-06 22:02:07 - WARNING - WebSocket: Plan 'bcb57921-436b-4f61-bb46-941524862538' not found.
+2025-11-06 22:29:37 - INFO - OPTIONS /api/coverage/ - 0.0002s - 200
+2025-11-06 22:29:37 - INFO - Created plan 1895612b-245a-4bd9-a232-2a7dae813b0d with 441 points
+2025-11-06 22:29:37 - INFO - POST /api/coverage/ - 0.0358s - 200
+2025-11-06 22:29:37 - INFO - 🎬 WebSocket playback started for plan 1895612b-245a-4bd9-a232-2a7dae813b0d (441 points)
+2025-11-06 22:29:40 - INFO - ❌ WebSocket disconnected for plan 1895612b-245a-4bd9-a232-2a7dae813b0d
+2025-11-06 22:30:27 - WARNING - WebSocket: Plan 'd7ce398e-be6c-4797-8f84-3a52202d176b' not found.
+2025-11-06 22:32:15 - WARNING - WebSocket: Plan 'd7ce398e-be6c-4797-8f84-3a52202d176b' not found.
+2025-11-06 22:45:20 - WARNING - WebSocket: Plan '8bcd2e28-cd80-4b1c-8da0-3e2e8c22801d' not found.
+2025-11-06 22:48:50 - WARNING - WebSocket: Plan 'bcddcc72-8ca3-47e9-ae53-8f60e6aa26f3' not found.
+2025-11-06 22:58:23 - WARNING - WebSocket: Plan '88334154-4f19-460b-8af4-c41cd38d979e' not found.
+2025-11-06 23:16:04 - WARNING - WebSocket: Plan '7ffb725c-f8d2-4a04-9af8-80ed3fbef4e6' not found.

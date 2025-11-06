@@ -17,25 +17,37 @@ export default function PathVisualizer({ currentPlanId }) {
   const [status, setStatus] = useState("Idle");
 
   const wsRef = useRef(null);
-  const intervalRef = useRef(null);
 
-  // 🔌 Connect WebSocket when playing
+  // ✅ Build correct WebSocket URL (auto detect environment)
+  const getWsUrl = () => {
+    let base;
+    if (
+      typeof window !== "undefined" &&
+      (window.location.hostname.includes("vercel.app") ||
+        window.location.hostname.includes("onrender.com"))
+    ) {
+      base = "wss://wall-finishing-system.onrender.com";
+    } else {
+      base = "ws://127.0.0.1:8000";
+    }
+    return `${base}/ws/play/${currentPlanId}`;
+  };
+
   const handlePlay = () => {
     if (!currentPlanId) {
       alert("⚠️ No plan selected to play!");
       return;
     }
-
     if (playing) return;
 
     setPlaying(true);
     setStatus("Connecting...");
 
-    const ws = new WebSocket(`ws://127.0.0.1:8000/ws/play/${currentPlanId}`);
+    const ws = new WebSocket(getWsUrl());
     wsRef.current = ws;
 
     ws.onopen = () => {
-      console.log("✅ Connected to WebSocket:", currentPlanId);
+      console.log("✅ Connected to WebSocket:", getWsUrl());
       setStatus("Streaming...");
       setPoints([]);
       setIndex(0);
@@ -84,13 +96,11 @@ export default function PathVisualizer({ currentPlanId }) {
   useEffect(() => {
     return () => {
       wsRef.current?.close();
-      clearInterval(intervalRef.current);
     };
   }, []);
 
   return (
     <div className="card">
-      {/* Header Section */}
       <div className="flex justify-between items-center mb-4">
         <h3 className="card-header flex items-center gap-2">
           📈 Path Visualizer
@@ -98,61 +108,33 @@ export default function PathVisualizer({ currentPlanId }) {
             {currentPlanId ? `(Plan ID: ${currentPlanId.slice(0, 8)}...)` : ""}
           </span>
         </h3>
-
-        {/* Buttons */}
         <div className="flex gap-2">
           <button
             onClick={handlePlay}
             disabled={playing}
-            className={`btn px-4 py-1 text-sm ${
-              playing ? "opacity-60 cursor-not-allowed" : ""
-            }`}
+            className={`btn px-4 py-1 text-sm ${playing ? "opacity-60 cursor-not-allowed" : ""}`}
           >
             ▶ Play
           </button>
           <button
             onClick={handleStop}
             disabled={!playing}
-            className={`btn-secondary px-4 py-1 text-sm ${
-              !playing ? "opacity-60 cursor-not-allowed" : ""
-            }`}
+            className={`btn-secondary px-4 py-1 text-sm ${!playing ? "opacity-60 cursor-not-allowed" : ""}`}
           >
             ⏹ Stop
           </button>
-          <button
-            onClick={handleReset}
-            className="btn-danger px-4 py-1 text-sm"
-          >
+          <button onClick={handleReset} className="btn-danger px-4 py-1 text-sm">
             🔄 Reset
           </button>
         </div>
       </div>
 
-      {/* Status + Progress */}
       <div className="text-sm text-gray-700 mb-3">
         <p>
           <span className="font-medium text-blue-600">Status:</span> {status}
         </p>
-        {points.length > 0 && (
-          <div className="mt-2 flex items-center gap-2">
-            <div className="w-full bg-gray-200 rounded-full h-2">
-              <div
-                className={`h-2 rounded-full ${
-                  status === "Completed" ? "bg-green-500" : "bg-blue-500"
-                }`}
-                style={{
-                  width: `${((index + 1) / points.length) * 100}%`,
-                }}
-              ></div>
-            </div>
-            <span className="text-xs text-gray-500 whitespace-nowrap">
-              {index}/{points.length}
-            </span>
-          </div>
-        )}
       </div>
 
-      {/* Visualization Graph */}
       <div
         className={`border border-gray-200 rounded-xl p-3 bg-gray-50 transition-all duration-300 ${
           playing ? "shadow-inner" : ""
@@ -176,13 +158,7 @@ export default function PathVisualizer({ currentPlanId }) {
                   border: "1px solid #e5e7eb",
                 }}
               />
-              <Line
-                dot={false}
-                dataKey="y"
-                stroke="#2563eb"
-                strokeWidth={2}
-                isAnimationActive={false}
-              />
+              <Line dot={false} dataKey="y" stroke="#2563eb" strokeWidth={2} isAnimationActive={false} />
               {points[index] && (
                 <ReferenceDot
                   x={points[index].x}
@@ -198,27 +174,17 @@ export default function PathVisualizer({ currentPlanId }) {
         )}
       </div>
 
-      {/* Footer Info */}
       <div className="text-xs text-gray-500 mt-3 flex justify-between">
         <span>
-          Total Points:{" "}
-          <span className="text-blue-600 font-medium">{points.length}</span>
+          Total Points: <span className="text-blue-600 font-medium">{points.length}</span>
         </span>
+        <span>Index: <span className="font-medium">{index}</span></span>
         <span>
-          Index: <span className="font-medium">{index}</span>
-        </span>
-        <span>
-          {status === "Completed" && (
-            <span className="badge badge-success">✅ Completed</span>
-          )}
+          {status === "Completed" && <span className="badge badge-success">✅ Completed</span>}
           {status === "Streaming..." && (
-            <span className="badge badge-warning animate-pulse">
-              🔵 Live Streaming
-            </span>
+            <span className="badge badge-warning animate-pulse">🔵 Live Streaming</span>
           )}
-          {status === "Error" && (
-            <span className="badge badge-error">❌ Error</span>
-          )}
+          {status === "Error" && <span className="badge badge-error">❌ Error</span>}
         </span>
       </div>
     </div>
