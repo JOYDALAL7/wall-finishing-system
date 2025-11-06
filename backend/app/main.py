@@ -1,6 +1,6 @@
 # backend/app/main.py
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, WebSocket
 from starlette.middleware.cors import CORSMiddleware
 import time
 from app.database import Base, engine
@@ -48,3 +48,29 @@ app.include_router(player.router)  # ✅ No prefix for WebSocket routes
 @app.get("/")
 async def root():
     return {"message": "Backend API is running successfully!"}
+
+
+# ✅ Quick WebSocket test endpoint (for Render)
+@app.websocket("/ws/test")
+async def websocket_test(websocket: WebSocket):
+    """
+    Simple WebSocket handshake test.
+    Confirms that Render allows WebSocket upgrade from Vercel frontend.
+    """
+    origin = websocket.headers.get("origin")
+    logger.info(f"🌐 WebSocket request from: {origin}")
+
+    # Only allow trusted origins
+    if origin not in [
+        "https://wall-finishing-system.vercel.app",
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+    ]:
+        await websocket.close(code=1008)
+        logger.warning(f"❌ WebSocket rejected due to invalid origin: {origin}")
+        return
+
+    await websocket.accept()
+    await websocket.send_json({"status": "connected ✅", "origin": origin})
+    logger.info(f"✅ WebSocket connection established from {origin}")
+    await websocket.close()
