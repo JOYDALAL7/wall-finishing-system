@@ -51,14 +51,14 @@ export async function getTrajectoriesByPlan(plan_id) {
 // ============================
 export function wsUrlForPlan(plan_id) {
   let wsBase = API_BASE.replace(/^http:/, "ws:").replace(/^https:/, "wss:");
-  
-  // ✅ Use Render backend in production
+
+  // ✅ Always use Render backend when running from Vercel
   if (typeof window !== "undefined" && window.location.hostname.includes("vercel.app")) {
     wsBase = "wss://wall-finishing-system.onrender.com";
   }
 
-  // ✅ Corrected route for your backend (inside /api/trajectory)
-  const wsUrl = `${wsBase}/api/trajectory/ws/play/${plan_id}`;
-  console.log("🎥 Correct WebSocket URL:", wsUrl);
+  // ✅ Correct WebSocket endpoint (matches backend route)
+  const wsUrl = `${wsBase}/ws/play/${plan_id}`;
+  console.log("🎥 Final WebSocket URL:", wsUrl);
   return wsUrl;
 }
