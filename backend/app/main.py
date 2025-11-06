@@ -19,8 +19,9 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:5173",
         "http://127.0.0.1:5173",
-        "https://wall-finishing-system.vercel.app",  # ✅ your Vercel frontend
-        "https://wall-finishing-system.onrender.com",  # ✅ your backend (self)
+        "https://wall-finishing-system.vercel.app",
+        "https://www.wall-finishing-system.vercel.app",
+        "https://wall-finishing-system.onrender.com",
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -44,34 +45,38 @@ app.include_router(trajectory.router, prefix="/api/trajectory", tags=["Trajector
 app.include_router(player.router)
 
 
-
 # ✅ Health check
 @app.get("/")
 async def root():
     return {"message": "Backend API is running successfully!"}
 
 
-# ✅ Quick WebSocket test endpoint (for Render)
+# ✅ WebSocket Test Route (More Permissive + Logs Origin)
 @app.websocket("/ws/test")
 async def websocket_test(websocket: WebSocket):
     """
-    Simple WebSocket handshake test.
-    Confirms that Render allows WebSocket upgrade from Vercel frontend.
+    Verifies if Render allows WebSocket upgrade from your frontend.
     """
-    origin = websocket.headers.get("origin")
+    origin = websocket.headers.get("origin", "")
     logger.info(f"🌐 WebSocket request from: {origin}")
 
-    # Only allow trusted origins
-    if origin not in [
-        "https://wall-finishing-system.vercel.app",
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-    ]:
+    # ✅ More tolerant origin check
+    trusted_domains = [
+        "vercel.app",
+        "localhost",
+        "127.0.0.1",
+        "onrender.com",
+    ]
+
+    if not any(domain in origin for domain in trusted_domains):
+        logger.warning(f"❌ WebSocket rejected: {origin}")
         await websocket.close(code=1008)
-        logger.warning(f"❌ WebSocket rejected due to invalid origin: {origin}")
         return
 
     await websocket.accept()
-    await websocket.send_json({"status": "connected ✅", "origin": origin})
+    await websocket.send_json({
+        "status": "connected ✅",
+        "origin": origin,
+    })
     logger.info(f"✅ WebSocket connection established from {origin}")
     await websocket.close()
