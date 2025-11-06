@@ -170,3 +170,10 @@
 2025-11-06 19:42:00 - INFO - ✅ Playback completed for plan d8f95c00-e2a9-4e57-8ac7-b7160248aaca
 2025-11-06 19:42:05 - INFO - GET /api/trajectory/recent - 0.0032s - 200
 2025-11-06 19:42:07 - INFO - GET /api/trajectory/recent - 0.0029s - 200
+2025-11-06 20:58:52 - INFO - GET /api/trajectory/recent - 0.0053s - 200
+2025-11-06 20:58:52 - INFO - GET /api/trajectory/recent - 0.0015s - 200
+2025-11-06 20:58:54 - INFO - OPTIONS /api/coverage/ - 0.0002s - 200
+2025-11-06 20:58:54 - INFO - Created plan dc657a6a-cd71-41ce-b714-767b81844ec2 with 437 points
+2025-11-06 20:58:54 - INFO - POST /api/coverage/ - 0.0206s - 200
+2025-11-06 20:58:55 - INFO - 🎬 WebSocket playback started for plan dc657a6a-cd71-41ce-b714-767b81844ec2 (437 points)
+2025-11-06 20:58:57 - INFO - ❌ WebSocket disconnected for plan dc657a6a-cd71-41ce-b714-767b81844ec2
