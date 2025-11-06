@@ -25,11 +25,11 @@ def get_db():
 @router.post("/", response_model=schemas.CoverageResponse)
 def plan_coverage(payload: schemas.CoverageRequest, db: Session = Depends(get_db)):
     """
-    Generates a new coverage plan with obstacle avoidance,
-    stores trajectories in DB, and returns plan_id + points.
+    Generates a new coverage plan, stores trajectories in DB,
+    and returns plan_id + points (normalized).
     """
 
-    # ✅ Build cache key (prevents recalculating same walls)
+    # ✅ Create unique cache key
     key = (
         payload.wall_width,
         payload.wall_height,
@@ -37,12 +37,13 @@ def plan_coverage(payload: schemas.CoverageRequest, db: Session = Depends(get_db
         payload.step,
     )
 
+    # ✅ Use cached result if exists
     cached = cache.cache.get(key)
     if cached:
         logger.info("♻️ Returning cached coverage result")
         return cached
 
-    # ✅ Convert obstacle list
+    # ✅ Build obstacle list
     obstacles = [
         {"x": o.x, "y": o.y, "width": o.width, "height": o.height}
         for o in payload.obstacles
@@ -50,35 +51,49 @@ def plan_coverage(payload: schemas.CoverageRequest, db: Session = Depends(get_db
 
     try:
         # ✅ Generate coverage path
-        result = generate_coverage_path(
+        raw_result = generate_coverage_path(
             payload.wall_width, payload.wall_height, obstacles, payload.step
         )
 
-        # Handle both return types (dict or list)
-        if isinstance(result, dict) and "points" in result:
-            plan_id = result.get("plan_id") or str(uuid4())
-            points = result["points"]
-        else:
+        # Normalize response structure
+        if isinstance(raw_result, dict) and "points" in raw_result:
+            plan_id = raw_result.get("plan_id") or str(uuid4())
+            points = raw_result["points"]
+        elif isinstance(raw_result, list):
             plan_id = str(uuid4())
-            points = result
+            points = raw_result
+        else:
+            raise HTTPException(status_code=500, detail="Invalid response from path generator")
 
-        # ✅ Validate
-        if not points or not isinstance(points, list):
-            raise HTTPException(status_code=400, detail="No valid path generated")
+        # ✅ Ensure all points are valid
+        clean_points = []
+        for p in points:
+            if not isinstance(p, dict):
+                continue
+            x = float(p.get("x", 0))
+            y = float(p.get("y", 0))
+            ts = p.get("timestamp", datetime.utcnow().timestamp())
+            if isinstance(ts, datetime):
+                ts = ts.timestamp()
+            clean_points.append({"x": x, "y": y, "timestamp": float(ts)})
 
-        # ✅ Save all points to DB in bulk (single transaction)
-        insert_status = crud.create_trajectories(db, plan_id, points)
+        if not clean_points:
+            logger.warning("⚠️ No valid points generated for wall plan.")
+            raise HTTPException(status_code=400, detail="No valid coverage path generated.")
+
+        # ✅ Store trajectories in DB
+        insert_status = crud.create_trajectories(db, plan_id, clean_points)
         if insert_status.get("status") != "success":
             raise HTTPException(status_code=500, detail=insert_status.get("message"))
 
-        # ✅ Build and cache response
-        response = {"plan_id": plan_id, "points": points}
+        # ✅ Build final response
+        response = {"plan_id": plan_id, "points": clean_points}
         cache.cache.set(key, response, ttl_seconds=60.0)
 
-        logger.info(f"✅ Plan {plan_id} created with {len(points)} points")
+        logger.info(f"✅ Coverage plan {plan_id} created with {len(clean_points)} points.")
         return response
 
     except Exception as e:
         db.rollback()
-        logger.error(f"🔥 Error creating coverage plan: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        logger.error(f"🔥 Error in plan_coverage: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to generate plan: {e}")
