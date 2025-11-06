@@ -1,13 +1,19 @@
-// frontend/src/api/api.js
 import axios from "axios";
 
-// ✅ Automatically use Render backend when deployed on Vercel
+// ✅ Automatically select backend
+// 1. Uses Render backend in production (Vercel build)
+// 2. Uses localhost when running locally
 const API_BASE =
-  import.meta.env.VITE_API_URL || "https://wall-finishing-system.onrender.com";
+  import.meta.env.VITE_API_URL ||
+  (window.location.hostname.includes("vercel.app")
+    ? "https://wall-finishing-system.onrender.com"
+    : "http://127.0.0.1:8000");
+
+console.log("🔗 Using API Base:", API_BASE);
 
 const client = axios.create({
   baseURL: API_BASE,
-  timeout: 10000,
+  timeout: 15000,
 });
 
 // ============================
@@ -39,9 +45,7 @@ export async function getTrajectoriesByPlan(plan_id) {
 // 🔌 WebSocket Stream for Live Playback
 // ============================
 export function wsUrlForPlan(plan_id) {
-  // Use ws:// locally, wss:// on production
-  const backendUrl =
-    import.meta.env.VITE_API_URL || "https://wall-finishing-system.onrender.com";
-  const wsBase = backendUrl.replace(/^http/, "ws");
-  return `${wsBase}/ws/play/${plan_id}`; // ✅ correct live playback route
+  // Use wss:// on production (secure), ws:// locally
+  const wsBase = API_BASE.replace(/^http/, "ws");
+  return `${wsBase}/ws/play/${plan_id}`;
 }
