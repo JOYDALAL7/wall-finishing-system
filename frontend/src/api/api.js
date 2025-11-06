@@ -34,7 +34,7 @@ export async function planCoverage({ wall_width, wall_height, obstacles, step })
 // 📦 Get Recent Trajectories
 // ============================
 export async function getRecentTrajectories(limit = 200) {
-  const res = await client.get(`/api/trajectory/?limit=${limit}&offset=0`);
+  const res = await client.get(`/api/trajectory/recent?limit=${limit}`);
   return res.data; // list of trajectory rows
 }
 
@@ -42,7 +42,7 @@ export async function getRecentTrajectories(limit = 200) {
 // 📦 Get Trajectories by Plan ID
 // ============================
 export async function getTrajectoriesByPlan(plan_id) {
-  const res = await client.get(`/api/trajectory/by_plan/${plan_id}`);
+  const res = await client.get(`/api/trajectory/${plan_id}`);
   return res.data; // list of points
 }
 
@@ -50,8 +50,13 @@ export async function getTrajectoriesByPlan(plan_id) {
 // 🔌 WebSocket Stream for Live Playback
 // ============================
 export function wsUrlForPlan(plan_id) {
-  // Convert http → ws and https → wss
-  const wsBase = API_BASE.replace(/^http:/, "ws:").replace(/^https:/, "wss:");
+  let wsBase = API_BASE.replace(/^http:/, "ws:").replace(/^https:/, "wss:");
+  
+  // ✅ Force correct Render domain when deployed on Vercel
+  if (typeof window !== "undefined" && window.location.hostname.includes("vercel.app")) {
+    wsBase = "wss://wall-finishing-system.onrender.com";
+  }
+
   const wsUrl = `${wsBase}/ws/play/${plan_id}`;
   console.log("🎥 WebSocket URL:", wsUrl);
   return wsUrl;
