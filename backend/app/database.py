@@ -5,59 +5,73 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker, declarative_base, Session
 from sqlalchemy.pool import QueuePool
 
-# -------------------------------------------------------------
-# 🔹 1. Database URL (default: SQLite file)
-# -------------------------------------------------------------
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./trajectory.db")
+# ============================================================
+# 1️⃣ Database Path Configuration
+# ============================================================
+# If DATABASE_URL exists (e.g. PostgreSQL on Render), use it
+# Otherwise, default to SQLite stored safely in /app/trajectory.db
 
-# -------------------------------------------------------------
-# 🔹 2. SQLite connection args + pooling setup
-# -------------------------------------------------------------
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DEFAULT_SQLITE_PATH = os.path.join("/app", "trajectory.db")
+
+DATABASE_URL = os.getenv("DATABASE_URL", f"sqlite:///{DEFAULT_SQLITE_PATH}")
+
+# ============================================================
+# 2️⃣ SQLite Connection Settings + Pool Configuration
+# ============================================================
 connect_args = {"check_same_thread": False, "timeout": 30} if DATABASE_URL.startswith("sqlite") else {}
 
 engine = create_engine(
     DATABASE_URL,
     connect_args=connect_args,
-    poolclass=QueuePool,     # Recommended for concurrent FastAPI requests
-    pool_size=10,            # Max number of connections kept open
-    max_overflow=20,         # Allow temporary extra connections
-    pool_timeout=30,         # Wait before throwing "database is locked"
-    pool_pre_ping=True,      # Detect stale connections
+    poolclass=QueuePool,
+    pool_size=10,
+    max_overflow=20,
+    pool_timeout=30,
+    pool_pre_ping=True,
     echo=False,
     future=True
 )
 
-# -------------------------------------------------------------
-# 🔹 3. Enable WAL (Write-Ahead Logging) for SQLite concurrency
-# -------------------------------------------------------------
+# ============================================================
+# 3️⃣ Ensure Database Directory and WAL Mode for SQLite
+# ============================================================
 if DATABASE_URL.startswith("sqlite"):
+    db_dir = os.path.dirname(DEFAULT_SQLITE_PATH)
+    os.makedirs(db_dir, exist_ok=True)  # Ensure /app exists
+
+    # ✅ Create database file if missing
+    if not os.path.exists(DEFAULT_SQLITE_PATH):
+        open(DEFAULT_SQLITE_PATH, "a").close()
+
+    # ✅ Apply SQLite optimizations
     with engine.begin() as conn:
         conn.execute(text("PRAGMA journal_mode=WAL;"))
         conn.execute(text("PRAGMA synchronous=NORMAL;"))
-        conn.execute(text("PRAGMA busy_timeout=30000;"))  # 30s wait before "locked"
+        conn.execute(text("PRAGMA busy_timeout=30000;"))  # Wait 30s before "database locked"
 
-# -------------------------------------------------------------
-# 🔹 4. Session factory configuration
-# -------------------------------------------------------------
+# ============================================================
+# 4️⃣ Session Factory Setup
+# ============================================================
 SessionLocal = sessionmaker(
     bind=engine,
     autoflush=False,
     autocommit=False,
-    expire_on_commit=False,  # Keeps objects valid after commit
+    expire_on_commit=False,
 )
 
-# -------------------------------------------------------------
-# 🔹 5. Declarative Base for ORM Models
-# -------------------------------------------------------------
+# ============================================================
+# 5️⃣ Base Model for SQLAlchemy ORM
+# ============================================================
 Base = declarative_base()
 
-# -------------------------------------------------------------
-# 🔹 6. Dependency for FastAPI routes
-# -------------------------------------------------------------
+# ============================================================
+# 6️⃣ Dependency for FastAPI Routes
+# ============================================================
 def get_db() -> Session:
     """
-    Yields a database session per request.
-    Ensures rollback on failure and closes session after use.
+    Provides a database session per request.
+    Rolls back on error and closes after use.
     """
     db = SessionLocal()
     try:
