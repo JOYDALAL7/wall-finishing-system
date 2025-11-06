@@ -1,0 +1,172 @@
+2025-11-06 17:39:17 - INFO - GET /api/trajectory/recent - duration:0.0003s - status:404
+2025-11-06 17:39:17 - INFO - GET /api/trajectory/recent - duration:0.0002s - status:404
+2025-11-06 17:39:22 - INFO - OPTIONS /api/coverage/ - duration:0.0001s - status:200
+2025-11-06 17:39:22 - INFO - POST /api/coverage/ - duration:0.0002s - status:404
+2025-11-06 17:43:36 - INFO - POST /api/coverage/ - duration:0.0004s - status:404
+2025-11-06 17:43:43 - INFO - GET /api/trajectory/recent - duration:0.0003s - status:404
+2025-11-06 17:43:43 - INFO - GET /api/trajectory/recent - duration:0.0002s - status:404
+2025-11-06 17:43:46 - INFO - POST /api/coverage/ - duration:0.0003s - status:404
+2025-11-06 17:44:32 - INFO - POST /api/coverage/ - duration:0.0003s - status:404
+2025-11-06 17:48:40 - INFO - GET /api/trajectory/recent - duration:0.0005s - status:404
+2025-11-06 17:48:40 - INFO - GET /api/trajectory/recent - duration:0.0002s - status:404
+2025-11-06 17:48:43 - INFO - POST /api/coverage/ - duration:0.0002s - status:404
+2025-11-06 17:50:24 - INFO - GET /api/trajectory/recent - 0.0004s - 404
+2025-11-06 17:50:24 - INFO - GET /api/trajectory/recent - 0.0003s - 404
+2025-11-06 17:50:25 - INFO - OPTIONS /api/coverage/ - 0.0001s - 200
+2025-11-06 17:50:25 - INFO - POST /api/coverage/ - 0.0002s - 307
+2025-11-06 17:50:25 - INFO - OPTIONS /api/coverage - 0.0001s - 200
+2025-11-06 17:50:25 - INFO - POST /api/coverage - 0.0002s - 405
+2025-11-06 17:50:51 - INFO - GET /api/trajectory/recent - 0.0003s - 404
+2025-11-06 17:50:51 - INFO - GET /api/trajectory/recent - 0.0002s - 404
+2025-11-06 17:50:54 - INFO - POST /api/coverage/ - 0.0002s - 307
+2025-11-06 17:50:54 - INFO - POST /api/coverage - 0.0002s - 405
+2025-11-06 17:51:24 - INFO - GET /docs - 0.0002s - 200
+2025-11-06 17:51:24 - INFO - GET /openapi.json - 0.0131s - 200
+2025-11-06 17:51:54 - INFO - GET /api/trajectory/recent - 0.0003s - 404
+2025-11-06 17:51:54 - INFO - GET /api/trajectory/recent - 0.0004s - 404
+2025-11-06 17:54:47 - INFO - GET /docs - 0.001s - 200
+2025-11-06 17:54:47 - INFO - GET /openapi.json - 0.0115s - 200
+2025-11-06 17:58:32 - INFO - GET /api/trajectory/recent - 0.0052s - 200
+2025-11-06 17:58:32 - INFO - GET /api/trajectory/recent - 0.0018s - 200
+2025-11-06 17:58:58 - INFO - GET /api/trajectory/recent - 0.0024s - 200
+2025-11-06 17:58:58 - INFO - GET /api/trajectory/recent - 0.0013s - 200
+2025-11-06 17:59:02 - INFO - GET /api/trajectory/recent - 0.0019s - 200
+2025-11-06 17:59:02 - INFO - GET /api/trajectory/recent - 0.0016s - 200
+2025-11-06 17:59:14 - INFO - GET /api/trajectory/recent - 0.0017s - 200
+2025-11-06 17:59:14 - INFO - GET /api/trajectory/recent - 0.0015s - 200
+2025-11-06 17:59:21 - INFO - GET /api/trajectory/recent - 0.0014s - 200
+2025-11-06 17:59:22 - INFO - GET /api/trajectory/recent - 0.0016s - 200
+2025-11-06 18:02:15 - INFO - OPTIONS /api/coverage/ - 0.0001s - 200
+2025-11-06 18:21:22 - INFO - OPTIONS /api/coverage/ - 0.0001s - 200
+2025-11-06 18:40:50 - INFO - OPTIONS /api/coverage/ - 0.0001s - 200
+2025-11-06 18:42:37 - INFO - GET /api/trajectory/recent - 0.0048s - 200
+2025-11-06 18:42:37 - INFO - GET /api/trajectory/recent - 0.0018s - 200
+2025-11-06 18:42:39 - INFO - Created plan bebc2f28-f623-48d3-a452-55ae1616e80b with 441 points
+2025-11-06 18:42:39 - INFO - POST /api/coverage/ - 0.0235s - 200
+2025-11-06 18:42:41 - INFO - GET /ws/play/bebc2f28-f623-48d3-a452-55ae1616e80b - 0.0002s - 404
+2025-11-06 18:49:45 - INFO - Created plan fb2e581e-816b-42ef-93e5-298867e8ef84 with 437 points
+2025-11-06 18:49:45 - INFO - POST /api/coverage/ - 0.0238s - 200
+2025-11-06 18:49:48 - INFO - GET /ws/play/fb2e581e-816b-42ef-93e5-298867e8ef84 - 0.0003s - 404
+2025-11-06 18:49:50 - INFO - GET /ws/play/fb2e581e-816b-42ef-93e5-298867e8ef84 - 0.0002s - 404
+2025-11-06 18:49:52 - INFO - GET /ws/play/fb2e581e-816b-42ef-93e5-298867e8ef84 - 0.0002s - 404
+2025-11-06 18:49:53 - INFO - GET /ws/play/fb2e581e-816b-42ef-93e5-298867e8ef84 - 0.0003s - 404
+2025-11-06 18:58:44 - INFO - OPTIONS /api/coverage/ - 0.0002s - 200
+2025-11-06 18:58:44 - INFO - Created plan 36fbe48d-66c1-492c-8503-9f05abeec130 with 441 points
+2025-11-06 18:58:44 - INFO - POST /api/coverage/ - 0.0222s - 200
+2025-11-06 18:58:46 - INFO - 🎬 WebSocket playback started for plan 36fbe48d-66c1-492c-8503-9f05abeec130 (441 points)
+2025-11-06 18:58:46 - ERROR - 🔥 WebSocket error for plan 36fbe48d-66c1-492c-8503-9f05abeec130: Object of type datetime is not JSON serializable
+2025-11-06 19:03:12 - INFO - Created plan 0c0d0a49-9b40-4369-b688-f762c61ce4db with 441 points
+2025-11-06 19:03:12 - INFO - POST /api/coverage/ - 0.0225s - 200
+2025-11-06 19:03:14 - INFO - 🎬 WebSocket playback started for plan 0c0d0a49-9b40-4369-b688-f762c61ce4db (441 points)
+2025-11-06 19:03:20 - INFO - ❌ WebSocket disconnected for plan 0c0d0a49-9b40-4369-b688-f762c61ce4db
+2025-11-06 19:03:25 - INFO - Created plan 3272fbd8-6fa9-43d5-9a6c-b69f02e7319e with 437 points
+2025-11-06 19:03:25 - INFO - POST /api/coverage/ - 0.0174s - 200
+2025-11-06 19:03:27 - INFO - 🎬 WebSocket playback started for plan 3272fbd8-6fa9-43d5-9a6c-b69f02e7319e (437 points)
+2025-11-06 19:03:54 - INFO - ✅ Playback completed for plan 3272fbd8-6fa9-43d5-9a6c-b69f02e7319e
+2025-11-06 19:08:07 - INFO - GET /api/trajectory/recent - 0.0065s - 200
+2025-11-06 19:08:07 - INFO - GET /api/trajectory/recent - 0.0032s - 200
+2025-11-06 19:08:12 - INFO - GET /api/trajectory/recent - 0.0025s - 200
+2025-11-06 19:08:13 - INFO - GET /api/trajectory/recent - 0.0023s - 200
+2025-11-06 19:08:13 - INFO - GET /api/trajectory/3272fbd8-6fa9-43d5-9a6c-b69f02e7319e - 0.0071s - 200
+2025-11-06 19:08:34 - INFO - Created plan 641e3852-907e-464b-9f77-39c8372dc748 with 35 points
+2025-11-06 19:08:34 - INFO - POST /api/coverage/ - 0.0057s - 200
+2025-11-06 19:08:37 - INFO - 🎬 WebSocket playback started for plan 641e3852-907e-464b-9f77-39c8372dc748 (35 points)
+2025-11-06 19:08:37 - ERROR - 🔥 WebSocket error for plan 641e3852-907e-464b-9f77-39c8372dc748: 'dict' object has no attribute 'timestamp'
+2025-11-06 19:08:41 - INFO - 🎬 WebSocket playback started for plan 641e3852-907e-464b-9f77-39c8372dc748 (35 points)
+2025-11-06 19:08:41 - ERROR - 🔥 WebSocket error for plan 641e3852-907e-464b-9f77-39c8372dc748: 'dict' object has no attribute 'timestamp'
+2025-11-06 19:08:46 - INFO - OPTIONS /api/coverage/ - 0.0002s - 200
+2025-11-06 19:08:46 - INFO - Created plan b36f37b1-9c62-4f49-9e2c-65dc2a626e30 with 34 points
+2025-11-06 19:08:46 - INFO - POST /api/coverage/ - 0.0036s - 200
+2025-11-06 19:08:49 - INFO - 🎬 WebSocket playback started for plan b36f37b1-9c62-4f49-9e2c-65dc2a626e30 (34 points)
+2025-11-06 19:08:49 - ERROR - 🔥 WebSocket error for plan b36f37b1-9c62-4f49-9e2c-65dc2a626e30: 'dict' object has no attribute 'timestamp'
+2025-11-06 19:08:51 - INFO - 🎬 WebSocket playback started for plan b36f37b1-9c62-4f49-9e2c-65dc2a626e30 (34 points)
+2025-11-06 19:08:51 - ERROR - 🔥 WebSocket error for plan b36f37b1-9c62-4f49-9e2c-65dc2a626e30: 'dict' object has no attribute 'timestamp'
+2025-11-06 19:08:51 - INFO - 🎬 WebSocket playback started for plan b36f37b1-9c62-4f49-9e2c-65dc2a626e30 (34 points)
+2025-11-06 19:08:51 - ERROR - 🔥 WebSocket error for plan b36f37b1-9c62-4f49-9e2c-65dc2a626e30: 'dict' object has no attribute 'timestamp'
+2025-11-06 19:08:51 - INFO - 🎬 WebSocket playback started for plan b36f37b1-9c62-4f49-9e2c-65dc2a626e30 (34 points)
+2025-11-06 19:08:51 - ERROR - 🔥 WebSocket error for plan b36f37b1-9c62-4f49-9e2c-65dc2a626e30: 'dict' object has no attribute 'timestamp'
+2025-11-06 19:08:51 - INFO - 🎬 WebSocket playback started for plan b36f37b1-9c62-4f49-9e2c-65dc2a626e30 (34 points)
+2025-11-06 19:08:51 - ERROR - 🔥 WebSocket error for plan b36f37b1-9c62-4f49-9e2c-65dc2a626e30: 'dict' object has no attribute 'timestamp'
+2025-11-06 19:08:51 - INFO - 🎬 WebSocket playback started for plan b36f37b1-9c62-4f49-9e2c-65dc2a626e30 (34 points)
+2025-11-06 19:08:51 - ERROR - 🔥 WebSocket error for plan b36f37b1-9c62-4f49-9e2c-65dc2a626e30: 'dict' object has no attribute 'timestamp'
+2025-11-06 19:08:52 - INFO - 🎬 WebSocket playback started for plan b36f37b1-9c62-4f49-9e2c-65dc2a626e30 (34 points)
+2025-11-06 19:08:52 - ERROR - 🔥 WebSocket error for plan b36f37b1-9c62-4f49-9e2c-65dc2a626e30: 'dict' object has no attribute 'timestamp'
+2025-11-06 19:08:52 - INFO - 🎬 WebSocket playback started for plan b36f37b1-9c62-4f49-9e2c-65dc2a626e30 (34 points)
+2025-11-06 19:08:52 - ERROR - 🔥 WebSocket error for plan b36f37b1-9c62-4f49-9e2c-65dc2a626e30: 'dict' object has no attribute 'timestamp'
+2025-11-06 19:09:15 - INFO - 🎬 WebSocket playback started for plan b36f37b1-9c62-4f49-9e2c-65dc2a626e30 (34 points)
+2025-11-06 19:09:15 - ERROR - 🔥 WebSocket error for plan b36f37b1-9c62-4f49-9e2c-65dc2a626e30: 'dict' object has no attribute 'timestamp'
+2025-11-06 19:10:36 - INFO - GET /api/trajectory/3272fbd8-6fa9-43d5-9a6c-b69f02e7319e - 0.0076s - 200
+2025-11-06 19:10:37 - INFO - GET /api/trajectory/3272fbd8-6fa9-43d5-9a6c-b69f02e7319e - 0.0065s - 200
+2025-11-06 19:10:38 - INFO - GET /api/trajectory/3272fbd8-6fa9-43d5-9a6c-b69f02e7319e - 0.0066s - 200
+2025-11-06 19:11:42 - INFO - GET /api/trajectory/recent - 0.0071s - 200
+2025-11-06 19:11:42 - INFO - GET /api/trajectory/recent - 0.0038s - 200
+2025-11-06 19:12:02 - INFO - Created plan 34320df3-d247-4e68-b1b4-0c0908ea5ab6 with 35 points
+2025-11-06 19:12:02 - INFO - POST /api/coverage/ - 0.0086s - 200
+2025-11-06 19:12:04 - INFO - 🎬 WebSocket playback started for plan 34320df3-d247-4e68-b1b4-0c0908ea5ab6 (35 points)
+2025-11-06 19:12:06 - INFO - ✅ Playback completed for plan 34320df3-d247-4e68-b1b4-0c0908ea5ab6
+2025-11-06 19:12:45 - INFO - Created plan 787d3864-0f97-411b-99a1-92105c948c4b with 41 points
+2025-11-06 19:12:45 - INFO - POST /api/coverage/ - 0.0043s - 200
+2025-11-06 19:12:51 - INFO - 🎬 WebSocket playback started for plan 787d3864-0f97-411b-99a1-92105c948c4b (41 points)
+2025-11-06 19:12:54 - INFO - ✅ Playback completed for plan 787d3864-0f97-411b-99a1-92105c948c4b
+2025-11-06 19:13:10 - INFO - GET /api/trajectory/recent - 0.0023s - 200
+2025-11-06 19:13:11 - INFO - GET /api/trajectory/recent - 0.003s - 200
+2025-11-06 19:13:24 - INFO - Created plan 2aa1ed8f-a12f-413b-a173-c8c3b1ca9f1a with 55 points
+2025-11-06 19:13:24 - INFO - POST /api/coverage/ - 0.0052s - 200
+2025-11-06 19:13:27 - INFO - Coverage result returned from cache
+2025-11-06 19:13:27 - INFO - POST /api/coverage/ - 0.0015s - 200
+2025-11-06 19:13:31 - INFO - 🎬 WebSocket playback started for plan 2aa1ed8f-a12f-413b-a173-c8c3b1ca9f1a (55 points)
+2025-11-06 19:13:35 - INFO - ✅ Playback completed for plan 2aa1ed8f-a12f-413b-a173-c8c3b1ca9f1a
+2025-11-06 19:14:25 - INFO - 🎬 WebSocket playback started for plan 2aa1ed8f-a12f-413b-a173-c8c3b1ca9f1a (55 points)
+2025-11-06 19:14:29 - INFO - ✅ Playback completed for plan 2aa1ed8f-a12f-413b-a173-c8c3b1ca9f1a
+2025-11-06 19:14:31 - INFO - GET /api/trajectory/34320df3-d247-4e68-b1b4-0c0908ea5ab6 - 0.002s - 200
+2025-11-06 19:14:32 - INFO - GET /api/trajectory/34320df3-d247-4e68-b1b4-0c0908ea5ab6 - 0.0018s - 200
+2025-11-06 19:14:33 - INFO - 🎬 WebSocket playback started for plan 34320df3-d247-4e68-b1b4-0c0908ea5ab6 (35 points)
+2025-11-06 19:14:35 - INFO - ✅ Playback completed for plan 34320df3-d247-4e68-b1b4-0c0908ea5ab6
+2025-11-06 19:25:41 - INFO - GET /api/trajectory/recent - 0.0039s - 200
+2025-11-06 19:25:41 - INFO - GET /api/trajectory/recent - 0.0028s - 200
+2025-11-06 19:26:13 - INFO - OPTIONS /api/coverage/ - 0.0002s - 200
+2025-11-06 19:26:13 - INFO - Created plan 890381d9-7565-477a-bac6-762aeb3e1fea with 217 points
+2025-11-06 19:26:13 - INFO - POST /api/coverage/ - 0.0107s - 200
+2025-11-06 19:26:17 - INFO - 🎬 WebSocket playback started for plan 890381d9-7565-477a-bac6-762aeb3e1fea (217 points)
+2025-11-06 19:26:30 - INFO - ✅ Playback completed for plan 890381d9-7565-477a-bac6-762aeb3e1fea
+2025-11-06 19:28:07 - INFO - Created plan 928754eb-ff8f-44bd-be54-7d829c48410e with 104 points
+2025-11-06 19:28:07 - INFO - POST /api/coverage/ - 0.0062s - 200
+2025-11-06 19:28:09 - INFO - 🎬 WebSocket playback started for plan 928754eb-ff8f-44bd-be54-7d829c48410e (104 points)
+2025-11-06 19:28:16 - INFO - ✅ Playback completed for plan 928754eb-ff8f-44bd-be54-7d829c48410e
+2025-11-06 19:33:01 - INFO - GET /api/trajectory/recent - 0.0027s - 200
+2025-11-06 19:33:02 - INFO - GET /api/trajectory/recent - 0.0024s - 200
+2025-11-06 19:34:20 - INFO - GET /api/trajectory/recent - 0.0025s - 200
+2025-11-06 19:34:20 - INFO - GET /api/trajectory/recent - 0.0022s - 200
+2025-11-06 19:34:51 - INFO - GET /api/trajectory/recent - 0.0027s - 200
+2025-11-06 19:34:51 - INFO - GET /api/trajectory/recent - 0.0022s - 200
+2025-11-06 19:34:59 - INFO - OPTIONS /api/coverage/ - 0.0001s - 200
+2025-11-06 19:34:59 - INFO - Created plan e9ffbdb6-db34-4a93-900a-2b91cf1cfcd2 with 437 points
+2025-11-06 19:34:59 - INFO - POST /api/coverage/ - 0.0187s - 200
+2025-11-06 19:35:05 - INFO - 🎬 WebSocket playback started for plan e9ffbdb6-db34-4a93-900a-2b91cf1cfcd2 (437 points)
+2025-11-06 19:35:32 - INFO - ✅ Playback completed for plan e9ffbdb6-db34-4a93-900a-2b91cf1cfcd2
+2025-11-06 19:40:27 - INFO - GET /api/trajectory/recent - 0.0035s - 200
+2025-11-06 19:40:27 - INFO - GET /api/trajectory/recent - 0.0028s - 200
+2025-11-06 19:40:39 - INFO - GET /api/trajectory/recent - 0.0034s - 200
+2025-11-06 19:40:39 - INFO - GET /api/trajectory/recent - 0.0035s - 200
+2025-11-06 19:40:45 - INFO - GET /api/trajectory/recent - 0.0029s - 200
+2025-11-06 19:40:47 - INFO - OPTIONS /api/coverage/ - 0.0001s - 200
+2025-11-06 19:40:47 - INFO - Created plan 474b15a8-8514-404d-adc6-efb8202dee1c with 441 points
+2025-11-06 19:40:47 - INFO - POST /api/coverage/ - 0.0188s - 200
+2025-11-06 19:40:50 - INFO - GET /api/trajectory/e9ffbdb6-db34-4a93-900a-2b91cf1cfcd2 - 0.0065s - 200
+2025-11-06 19:40:54 - INFO - Coverage result returned from cache
+2025-11-06 19:40:54 - INFO - POST /api/coverage/ - 0.0023s - 200
+2025-11-06 19:40:56 - INFO - Created plan 0cd526ae-7790-4c6c-8dc9-a69be9883f03 with 437 points
+2025-11-06 19:40:56 - INFO - POST /api/coverage/ - 0.0187s - 200
+2025-11-06 19:40:58 - INFO - GET /api/trajectory/recent - 0.0029s - 200
+2025-11-06 19:40:59 - INFO - GET /api/trajectory/recent - 0.0027s - 200
+2025-11-06 19:41:02 - INFO - GET /api/trajectory/0cd526ae-7790-4c6c-8dc9-a69be9883f03 - 0.0065s - 200
+2025-11-06 19:41:22 - INFO - Created plan 4a3e0c71-f3ae-4b32-9a48-bc1113e301d6 with 39 points
+2025-11-06 19:41:22 - INFO - POST /api/coverage/ - 0.004s - 200
+2025-11-06 19:41:23 - INFO - 🎬 WebSocket playback started for plan 4a3e0c71-f3ae-4b32-9a48-bc1113e301d6 (39 points)
+2025-11-06 19:41:25 - INFO - ✅ Playback completed for plan 4a3e0c71-f3ae-4b32-9a48-bc1113e301d6
+2025-11-06 19:41:56 - INFO - Created plan d8f95c00-e2a9-4e57-8ac7-b7160248aaca with 39 points
+2025-11-06 19:41:56 - INFO - POST /api/coverage/ - 0.0039s - 200
+2025-11-06 19:41:57 - INFO - 🎬 WebSocket playback started for plan d8f95c00-e2a9-4e57-8ac7-b7160248aaca (39 points)
+2025-11-06 19:42:00 - INFO - ✅ Playback completed for plan d8f95c00-e2a9-4e57-8ac7-b7160248aaca
+2025-11-06 19:42:05 - INFO - GET /api/trajectory/recent - 0.0032s - 200
+2025-11-06 19:42:07 - INFO - GET /api/trajectory/recent - 0.0029s - 200

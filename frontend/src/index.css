@@ -1,0 +1,107 @@
+/* frontend/src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ✅ Layout & global styles */
+html, body, #root {
+  height: 100%;
+  font-family: 'Poppins', sans-serif;
+  scroll-behavior: smooth;
+  background: linear-gradient(180deg, #f9fafb 0%, #e5e7eb 100%);
+}
+
+/* ✅ Smooth transitions for UI */
+* {
+  transition: all 0.2s ease-in-out;
+}
+
+/* ✅ Custom scrollbar (optional aesthetic) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #a1a1aa;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #71717a;
+}
+
+/* ✅ Cards & headers */
+.card {
+  @apply bg-white rounded-2xl shadow-md border border-gray-200 p-6;
+}
+
+.card-header {
+  @apply text-lg font-semibold text-blue-600 mb-3 flex items-center gap-2;
+}
+
+/* ✅ Buttons */
+.btn {
+  @apply px-4 py-2 rounded-lg font-medium text-white bg-blue-600 hover:bg-blue-700 active:scale-95 focus:ring-2 focus:ring-blue-400 focus:outline-none;
+}
+
+.btn-secondary {
+  @apply bg-gray-200 text-gray-800 hover:bg-gray-300;
+}
+
+.btn-danger {
+  @apply bg-red-500 text-white hover:bg-red-600;
+}
+
+/* ✅ Inputs */
+.input {
+  @apply border border-gray-300 rounded-lg px-3 py-2 text-gray-700 focus:ring-2 focus:ring-blue-400 focus:outline-none;
+}
+
+/* ✅ Section headers */
+.section-title {
+  @apply text-xl font-semibold text-blue-600 mb-4;
+}
+
+/* ✅ Status badges */
+.badge {
+  @apply inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium;
+}
+
+.badge-success {
+  @apply bg-green-100 text-green-700;
+}
+
+.badge-warning {
+  @apply bg-yellow-100 text-yellow-700;
+}
+
+.badge-error {
+  @apply bg-red-100 text-red-700;
+}
+
+/* ✅ Footer */
+footer {
+  @apply text-center text-sm text-gray-500 mt-10 mb-4;
+}
+
+/* ✅ Optional dark mode (auto) */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #111827;
+    color: #e5e7eb;
+  }
+
+  .card {
+    @apply bg-gray-800 border-gray-700 text-gray-100;
+  }
+
+  .input {
+    @apply bg-gray-700 border-gray-600 text-gray-200;
+  }
+
+  .btn {
+    @apply bg-blue-500 hover:bg-blue-600;
+  }
+
+  footer {
+    @apply text-gray-400;
+  }
+}
