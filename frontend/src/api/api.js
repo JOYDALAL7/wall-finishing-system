@@ -71,8 +71,8 @@ export function wsUrlForPlan(plan_id) {
     wsBase = "wss://wall-finishing-system.onrender.com";
   }
 
-  // ✅ Correct backend route
-  const wsUrl = `${wsBase}/ws/play/${plan_id}`;
+  // ✅ FIXED: Correct backend route for WebSocket (matches FastAPI)
+  const wsUrl = `${wsBase}/api/trajectory/ws/play/${plan_id}`;
 
   console.log("🎥 Final WebSocket URL:", wsUrl);
   return wsUrl;
