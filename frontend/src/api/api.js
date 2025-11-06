@@ -1,17 +1,21 @@
 import axios from "axios";
 
-// ✅ Automatically select backend
-// - Render backend when deployed
-// - Localhost when testing locally
-const API_BASE =
-  import.meta.env.VITE_API_URL ||
-  (typeof window !== "undefined" &&
-  window.location.hostname.includes("vercel.app"))
-    ? "https://wall-finishing-system.onrender.com"
-    : "http://127.0.0.1:8000";
+// ✅ Determine API base URL safely for both local & deployed builds
+let API_BASE = import.meta.env.VITE_API_URL;
+
+if (!API_BASE) {
+  if (typeof window !== "undefined" && window.location.hostname.includes("vercel.app")) {
+    // Production (Vercel → talks to Render backend)
+    API_BASE = "https://wall-finishing-system.onrender.com";
+  } else {
+    // Local development
+    API_BASE = "http://127.0.0.1:8000";
+  }
+}
 
 console.log("🔗 Using API Base:", API_BASE);
 
+// ✅ Axios client
 const client = axios.create({
   baseURL: API_BASE,
   timeout: 15000,
@@ -23,7 +27,7 @@ const client = axios.create({
 export async function planCoverage({ wall_width, wall_height, obstacles, step }) {
   const payload = { wall_width, wall_height, obstacles, step };
   const res = await client.post("/api/coverage/", payload);
-  return res.data; // {plan_id, points: [{x,y,timestamp}]}
+  return res.data; // { plan_id, points: [{x,y,timestamp}] }
 }
 
 // ============================
@@ -48,5 +52,7 @@ export async function getTrajectoriesByPlan(plan_id) {
 export function wsUrlForPlan(plan_id) {
   // Convert http → ws and https → wss
   const wsBase = API_BASE.replace(/^http:/, "ws:").replace(/^https:/, "wss:");
-  return `${wsBase}/ws/play/${plan_id}`;
+  const wsUrl = `${wsBase}/ws/play/${plan_id}`;
+  console.log("🎥 WebSocket URL:", wsUrl);
+  return wsUrl;
 }
