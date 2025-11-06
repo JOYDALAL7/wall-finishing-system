@@ -8,10 +8,12 @@ from app.database import SessionLocal
 from app.utils.coverage_planner import generate_coverage_path
 from app.utils import cache
 from app.utils.logging import logger
+from datetime import datetime
 
 router = APIRouter(tags=["Coverage"])
 
 
+# ✅ DB dependency
 def get_db():
     db = SessionLocal()
     try:
@@ -47,20 +49,36 @@ def plan_coverage(payload: schemas.CoverageRequest, db: Session = Depends(get_db
         for o in payload.obstacles
     ]
 
-    # ✅ Generate coverage path (returns dict with plan_id + points)
-    result = generate_coverage_path(
+    # ✅ Generate new coverage plan
+    plan_id = str(uuid4())
+    points = generate_coverage_path(
         payload.wall_width, payload.wall_height, obstacles, payload.step
     )
 
-    plan_id = result["plan_id"]
-    points = result["points"]
+    # ✅ Ensure result format
+    if not points:
+        raise HTTPException(status_code=400, detail="No valid coverage path generated")
 
-    # ✅ Store points in DB safely
-    crud.create_trajectories(db, plan_id, points)
+    # ✅ Save each trajectory to DB
+    try:
+        for p in points:
+            traj = schemas.TrajectoryCreate(
+                x=p["x"],
+                y=p["y"],
+                timestamp=p["timestamp"],
+                plan_id=plan_id,
+            )
+            crud.create_trajectory(db, traj)
 
-    # ✅ Cache + Return response
-    response = {"plan_id": plan_id, "points": points}
-    cache.cache.set(key, response, ttl_seconds=60.0)
+        db.commit()  # ✅ Important: persist all trajectories
 
-    logger.info(f"Created plan {plan_id} with {len(points)} points")
-    return response
+        logger.info(f"✅ Created plan {plan_id} with {len(points)} points")
+
+        response = {"plan_id": plan_id, "points": points}
+        cache.cache.set(key, response, ttl_seconds=60.0)
+        return response
+
+    except Exception as e:
+        db.rollback()
+        logger.error(f"🔥 Error creating trajectories: {e}")
+        raise HTTPException(status_code=500, detail=str(e))

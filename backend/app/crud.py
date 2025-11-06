@@ -6,8 +6,8 @@ from app import models
 
 def create_trajectories(db: Session, plan_id: str, points: list[dict]):
     """
-    Safely inserts coverage path points into the database.
-    Converts numeric timestamps to datetime objects.
+    Inserts coverage path points into the database safely and reliably.
+    Commits once after all inserts and ensures timestamps are consistent.
     """
 
     if not isinstance(points, list) or len(points) == 0:
@@ -35,19 +35,25 @@ def create_trajectories(db: Session, plan_id: str, points: list[dict]):
                 x=float(p["x"]),
                 y=float(p["y"]),
                 timestamp=ts,
+                created_at=datetime.utcnow()
             )
         )
 
-    db.add_all(objs)
-    db.commit()
+    try:
+        db.add_all(objs)
+        db.flush()   # ✅ ensures objects are actually written before commit
+        db.commit()  # ✅ persist changes
+        db.refresh(objs[-1])  # ✅ refresh last one to ensure visibility
+        return {"status": "success", "count": len(objs)}
 
-    return {"status": "success", "count": len(objs)}
+    except Exception as e:
+        db.rollback()
+        return {"status": "error", "message": str(e)}
 
 
 def get_recent_trajectories(db: Session, limit: int = 50):
     """
     Returns the most recent trajectories with float timestamps.
-    Fixes FastAPI's 'timestamp must be a float' validation error.
     """
     rows = (
         db.query(models.Trajectory)
@@ -56,7 +62,6 @@ def get_recent_trajectories(db: Session, limit: int = 50):
         .all()
     )
 
-    # ✅ Convert datetime -> float before returning
     result = []
     for row in rows:
         ts = (
@@ -85,7 +90,6 @@ def get_trajectories_by_plan(db: Session, plan_id: str):
         .all()
     )
 
-    # ✅ Convert datetime -> float here too (for WebSocket playback)
     result = []
     for row in rows:
         ts = (
