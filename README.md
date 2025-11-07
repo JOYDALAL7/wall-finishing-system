@@ -100,9 +100,11 @@ npm run dev
 ✅ Frontend runs at: http://127.0.0.1:5173
 
 🌐 Deployed Links
-Component	Platform	         URL
-Frontend (React)	          🟦 Vercel	https://wall-finishing-system.vercel.app
-Backend (FastAPI)	          🟩 Render	https://wall-finishing-system.onrender.com
+| Component             | Platform  | URL                                                                                      |
+| --------------------- | --------- | ---------------------------------------------------------------------------------------- |
+| **Frontend (React)**  | 🟦 Vercel | [https://wall-finishing-system.vercel.app](https://wall-finishing-system.vercel.app)     |
+| **Backend (FastAPI)** | 🟩 Render | [https://wall-finishing-system.onrender.com](https://wall-finishing-system.onrender.com) |
+
 
 🎥 Demo Video
 
@@ -117,16 +119,14 @@ Cloud deployment explanation
 
 👤 Submission Details
 
-Name	                       Joy Dalal 
+| Field                     | Details                                                                                                                    |
+| ------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| **Name**                  | Joy Dalal                                                                                                                  |
+| **Assignment**            | BE Intern Assignment – Wall Finishing Robot System                                                                         |
+| **Organization**          | 10X Construction AI                                                                                                        |
+| **Evaluators**            | [tanay@10xconstruction.ai](mailto:tanay@10xconstruction.ai), [tushar@10xconstruction.ai](mailto:tushar@10xconstruction.ai) |
+| **Repository Visibility** | Private (includes code, deployments & video)                                                                               |
 
-Assignment	                BE Intern Assignment – Wall Finishing Robot System
-
-Organization	              10X Construction AI
-
-Evaluators	                tanay@10xconstruction.ai,
-                            tushar@10xconstruction.ai
-                             
-Repository Visibility       Private (includes code, deployments & video) 
 
 📁 Folder Structure
 ```text
