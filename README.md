@@ -160,9 +160,7 @@ wall-finishing-system/
 │   └── vite.config.js
 │
 └── README.md
-```
-💬 Final Note
-This project was built as part of the BE Intern Assignment at 10X Construction AI, showcasing how backend computation, API design, and frontend visualization can come together to simulate a real-world robotic control system.
+``
 
 🧠 Every component — from FastAPI endpoints to React visualization — was written with clarity, modularity, and scalability in mind.
 
