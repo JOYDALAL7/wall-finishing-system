@@ -106,26 +106,11 @@ npm run dev
 | **Backend (FastAPI)** | 🟩 Render | [https://wall-finishing-system.onrender.com](https://wall-finishing-system.onrender.com) |
 
 
-🎥 Demo Video
-
-🎬 Full Walkthrough (3 mins)
-👉 Loom Video – https://www.loom.com/share/f227a3af248543ce915d17c5b3c3f22f
-
 Covered in the video:
 Project overview and architecture
 FastAPI backend demo (data + logging)
 React-based path visualization in action
-Cloud deployment explanation
-
-👤 Submission Details
-
-| Field                     | Details                                                                                                                    |
-| ------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| **Name**                  | Joy Dalal                                                                                                                  |
-| **Assignment**            | BE Intern Assignment – Wall Finishing Robot System                                                                         |
-| **Organization**          | 10X Construction AI                                                                                                        |
-| **Evaluators**            | [tanay@10xconstruction.ai](mailto:tanay@10xconstruction.ai), [tushar@10xconstruction.ai](mailto:tushar@10xconstruction.ai) |
-| **Repository Visibility** | Private (includes code, deployments & video)                                                                               |
+Cloud deployment explanation                                                                         |
 
 
 📁 Folder Structure
